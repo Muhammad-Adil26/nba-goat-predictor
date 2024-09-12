@@ -30,21 +30,16 @@ career_info_df = pd.read_csv(career_info_file_path)
 df.fillna(method='ffill', inplace=True)
 
 # 3. Merge selective columns from the datasets based on 'player' and 'season'
-merged_df = pd.merge(df[['player', 'season', 'pts_per_game', 'ast_per_game', 'trb_per_game', 'g']], 
-                     award_df[['player', 'season', 'share']], on=['player', 'season'], how='left')
+merged_df = pd.merge(df[['player', 'season', 'pts_per_game', 'ast_per_game', 'trb_per_game', 'g']], award_df[['player', 'season', 'share']], on=['player', 'season'], how='left')
 
-merged_df = pd.merge(merged_df, advanced_df[['player', 'season', 'per', 'ws', 'ts_percent']], 
-                     on=['player', 'season'], how='left')
+merged_df = pd.merge(merged_df, advanced_df[['player', 'season', 'per', 'ws', 'ts_percent']], on=['player', 'season'], how='left')
 
-merged_df = pd.merge(merged_df, per_100_df[['player', 'season', 'pts_per_100_poss']], 
-                     on=['player', 'season'], how='left')
+merged_df = pd.merge(merged_df, per_100_df[['player', 'season', 'pts_per_100_poss']], on=['player', 'season'], how='left')
 
-merged_df = pd.merge(merged_df, per_36_df[['player', 'season', 'pts_per_36_min']], 
-                     on=['player', 'season'], how='left')
+merged_df = pd.merge(merged_df, per_36_df[['player', 'season', 'pts_per_36_min']], on=['player', 'season'], how='left')
 
 # Merge player career info based on 'player' only (since there is no 'season' in career_info_df)
-merged_df = pd.merge(merged_df, career_info_df[['player', 'num_seasons', 'hof']], 
-                     on='player', how='left')
+merged_df = pd.merge(merged_df, career_info_df[['player', 'num_seasons', 'hof']], on='player', how='left')
 
 # 4. Fill any remaining missing values
 merged_df.fillna(0, inplace=True)
